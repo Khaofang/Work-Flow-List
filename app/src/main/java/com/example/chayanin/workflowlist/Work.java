@@ -25,8 +25,7 @@ public class Work {
         return topic;
     }
 
-    public void addNewProcess(String s) {
-        Process p = new Process(s);
+    public void addNewProcess(Process p) {
         processes.add(p);
     }
 
