@@ -39,6 +39,10 @@ public class WorkRepository {
         return works;
     }
 
+    public void addProcess(Work w, Process p) {
+        w.addNewProcess(p);
+    }
+
     public void addWork(Work w) {
         works.add(w);
     }
