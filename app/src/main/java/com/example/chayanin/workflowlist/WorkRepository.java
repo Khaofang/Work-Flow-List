@@ -3,10 +3,6 @@ package com.example.chayanin.workflowlist;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Chayanin on 2017-05-30.
- */
-
 public class WorkRepository {
 
     private static WorkRepository instance;

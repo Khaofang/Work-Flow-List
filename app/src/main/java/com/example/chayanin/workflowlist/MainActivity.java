@@ -24,11 +24,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
             presenter = new MainPresenter(repository, this);
         }
 
-        ListView lv_workList = (ListView) findViewById(R.id.lv_workList);
+        ListView lv_workList = (ListView) findViewById(R.id.lv_main_workList);
         ArrayAdapter<Work> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, repository.getWorks());
         lv_workList.setAdapter(adapter);
 
-        FloatingActionButton fab_add = (FloatingActionButton) findViewById(R.id.fab_add_main);
+        FloatingActionButton fab_add = (FloatingActionButton) findViewById(R.id.fab_main_add);
 
     }
 
