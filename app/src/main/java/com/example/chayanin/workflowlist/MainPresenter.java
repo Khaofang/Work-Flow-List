@@ -10,9 +10,10 @@ public class MainPresenter {
 
     private WorkRepository repository;
 
-    public MainPresenter(WorkRepository repository, MainView view) {
-        this.repository = repository;
+    public MainPresenter(MainView view) {
         this.view = view;
+        repository = WorkRepository.getInstance();
     }
+
 
 }

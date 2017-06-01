@@ -12,31 +12,25 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     private MainPresenter presenter;
 
-    private WorkRepository repository;
+    private ListView lv_workList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (presenter == null) {
-            repository = WorkRepository.getInstance();
-            presenter = new MainPresenter(repository, this);
-        }
+        lv_workList = (ListView) findViewById(R.id.lv_main_workList);
+        setUpListView();
 
-        ListView lv_workList = (ListView) findViewById(R.id.lv_main_workList);
-        ArrayAdapter<Work> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, repository.getWorks());
-        lv_workList.setAdapter(adapter);
-
-        FloatingActionButton fab_add = (FloatingActionButton) findViewById(R.id.fab_main_add);
-
+        if (presenter == null)
+            presenter = new MainPresenter(this);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                // TODO: UPDATE LISTVIEW
+                setUpListView();
             }
         }
     }
@@ -44,7 +38,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void goToAddWorkActivity(View view) {
         Intent intent = new Intent(MainActivity.this, AddWorkActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
+    }
+
+    public void setUpListView() {
+        ArrayAdapter<Work> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, WorkRepository.getInstance().getWorks());
+        lv_workList.setAdapter(adapter);
     }
 
 }
