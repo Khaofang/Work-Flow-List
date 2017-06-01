@@ -15,12 +15,6 @@ public class AddWorkPresenter {
 
     public void addNewWork(Work w) {
         repository.addWork(w);
-        System.out.println(w.toString());
-
-        List<Work> workList = repository.getWorks();
-        for (Work work : workList) {
-            System.out.println(work.toString());
-        }
     }
 
 }

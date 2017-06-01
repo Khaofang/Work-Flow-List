@@ -75,19 +75,23 @@ public class AddWorkActivity extends AppCompatActivity implements AddWorkView {
             cal.set(Calendar.DATE, date);
             cal.set(Calendar.HOUR, hrs);
             cal.set(Calendar.MINUTE, min);
-            Date d = cal.getTime();
+            Date d = new Date(year, month, date, hrs, min);
 
             Work w = new Work(topic, processes, d);
             presenter.addNewWork(w);
         } catch(Exception e) {
-            // TODO: alert that wrong filling in
+            successAdd = false;
         }
 
         goToMainActivity(view);
     }
 
     public void goToMainActivity(View view) {
-        onBackPressed();
+        if (successAdd)
+            onBackPressed();
+        else {
+            // TODO: alert that wrong filling in
+        }
     }
 
     public void setUpListView() {

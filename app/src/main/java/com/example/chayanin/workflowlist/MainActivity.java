@@ -1,10 +1,10 @@
 package com.example.chayanin.workflowlist;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -44,6 +44,15 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void setUpListView() {
         ArrayAdapter<Work> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, WorkRepository.getInstance().getWorks());
         lv_workList.setAdapter(adapter);
+        lv_workList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Work selected = (Work) parent.getItemAtPosition(position);
+                Intent intent = new Intent(MainActivity.this, ViewWorkActivity.class);
+                intent.putExtra("index", position);
+                startActivityForResult(intent, 1);
+            }
+        });
     }
 
 }
