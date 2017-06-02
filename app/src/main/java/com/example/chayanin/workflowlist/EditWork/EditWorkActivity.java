@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.example.chayanin.workflowlist.EditProcess.EditProcessActivity;
 import com.example.chayanin.workflowlist.Model.Process;
 import com.example.chayanin.workflowlist.R;
 
@@ -48,26 +50,44 @@ public class EditWorkActivity extends AppCompatActivity implements EditWorkView 
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                setUpListView();
+            }
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
         finish();
     }
 
-    public void addNewProcess() {
+    @Override
+    public void addNewProcessInChanging(View view) {
         String process = et_process.getText().toString();
         Process p = new Process(process);
         presenter.addNewProcess(p);
+        setUpListView();
+        et_process.setText("");
     }
 
+    @Override
     public void goToEditProcessActivity(int index) {
-
+        Intent intent = new Intent(EditWorkActivity.this, EditProcessActivity.class);
+        intent.putExtra("work_index", presenter.getIndex());
+        intent.putExtra("process_index", index);
+        startActivityForResult(intent, 1);
     }
 
+    @Override
     public void goToViewWorkActivity(View view) {
         onBackPressed();
     }
 
+    @Override
     public void modifyWork(View view) {
         try {
             String topic = et_topic.getText().toString();
@@ -89,8 +109,8 @@ public class EditWorkActivity extends AppCompatActivity implements EditWorkView 
         }
     }
 
+    @Override
     public void setUpAllComponents() {
-        ArrayAdapter<Process> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, presenter.getNewProcesses());
         String[] date = presenter.getWork().getDeadlineDate().split("/");
         String[] time = presenter.getWork().getDeadlineTime().split(":");
         et_topic.setText(presenter.getWork().getTopic());
@@ -99,7 +119,19 @@ public class EditWorkActivity extends AppCompatActivity implements EditWorkView 
         et_year.setText(date[2]);
         et_hour.setText(time[0]);
         et_minute.setText(time[1]);
+        setUpListView();
+    }
+
+    @Override
+    public void setUpListView() {
+        ArrayAdapter<Process> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, presenter.getNewProcesses());
         lv_processList.setAdapter(adapter);
+        lv_processList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                goToEditProcessActivity(position);
+            }
+        });
     }
 
 }
