@@ -14,6 +14,7 @@ import com.example.chayanin.workflowlist.EditProcess.EditProcessActivity;
 import com.example.chayanin.workflowlist.Model.Process;
 import com.example.chayanin.workflowlist.R;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class EditWorkActivity extends AppCompatActivity implements EditWorkView {
@@ -72,6 +73,12 @@ public class EditWorkActivity extends AppCompatActivity implements EditWorkView 
         presenter.addNewProcess(p);
         setUpListView();
         et_process.setText("");
+    }
+
+    @Override
+    public void cancel(View view) {
+        presenter.restoreData();
+        goToViewWorkActivity(view);
     }
 
     @Override

@@ -10,6 +10,11 @@ public class Process {
         this.detail = detail;
     }
 
+    public Process(String detail, boolean finish) {
+        this.finish = finish;
+        this.detail = detail;
+    }
+
     public boolean isFinish() {
         return finish;
     }

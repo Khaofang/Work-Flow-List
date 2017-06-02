@@ -12,6 +12,7 @@ public class EditWorkPresenter {
     private EditWorkView view;
 
     private List<Process> newProcesses;
+    private List<Process> oldProcesses;
     private Work work;
     private int index;
 
@@ -20,10 +21,13 @@ public class EditWorkPresenter {
         work = WorkRepository.getInstance().getWorks().get(index);
         this.index = index;
         newProcesses = new ArrayList<Process>();
-        List<Process> oldProcesses = work.getProcesses();
-        for (int i = 0; i < oldProcesses.size(); i++) {
-            Process p = oldProcesses.get(i);
+        oldProcesses = new ArrayList<Process>();
+        List<Process> processes = work.getProcesses();
+        for (int i = 0; i < processes.size(); i++) {
+            Process p = processes.get(i);
+            Process pSaved = new Process(p.getDetail(), p.isFinish());
             newProcesses.add(p);
+            oldProcesses.add(pSaved);
         }
     }
 
@@ -33,6 +37,10 @@ public class EditWorkPresenter {
 
     public List<Process> getNewProcesses() {
         return newProcesses;
+    }
+
+    public List<Process> getOldProcesses() {
+        return oldProcesses;
     }
 
     public Work getWork() {
@@ -78,6 +86,10 @@ public class EditWorkPresenter {
             return false;
 
         return true;
+    }
+
+    public void restoreData() {
+        work.setProcesses(oldProcesses);
     }
 
     public void updateData(String topic, String date, String time) {

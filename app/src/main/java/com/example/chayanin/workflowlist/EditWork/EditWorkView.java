@@ -5,6 +5,7 @@ import android.view.View;
 public interface EditWorkView {
 
     void addNewProcessInChanging(View view);
+    void cancel(View view);
     void goToEditProcessActivity(int index);
     void goToViewWorkActivity(View view);
     void modifyWork(View view);
