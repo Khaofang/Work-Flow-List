@@ -10,6 +10,7 @@ public class EditProcessPresenter {
 
     private Process process;
     private Work work;
+    private boolean currChecked;
     private int workIndex;
     private int processIndex;
 
@@ -17,8 +18,29 @@ public class EditProcessPresenter {
         this.view = view;
         work = WorkRepository.getInstance().getWorks().get(workIndex);
         process = work.getProcesses().get(processIndex);
+        currChecked = process.isFinish();
         this.workIndex = workIndex;
         this.processIndex = processIndex;
+    }
+
+    public Process getProcess() {
+        return process;
+    }
+
+    public void setCurrChecked(boolean currChecked) {
+        this.currChecked = currChecked;
+    }
+
+    public void removeThisProcess() {
+        work.getProcesses().remove(processIndex);
+    }
+
+    public void updateData(String detail) {
+        process.setDetail(detail);
+        if (currChecked)
+            process.finish();
+        else
+            process.notFinish();
     }
 
 }

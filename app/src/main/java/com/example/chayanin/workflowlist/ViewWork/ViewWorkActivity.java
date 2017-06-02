@@ -81,9 +81,9 @@ public class ViewWorkActivity extends AppCompatActivity implements ViewWorkView 
         tv_topic.setText(w.toString());
 
         if (w.getNumProcessesContained() == 0)
-            tv_percent.setText("-");
+            tv_percent.setText("NaN");
         else
-            tv_percent.setText(String.format("%.0f", w.getNumProcessesFinished() * 1.0 / w.getNumProcessesContained()) + "%");
+            tv_percent.setText(String.format("%d", w.getNumProcessesFinished() * 100 / w.getNumProcessesContained()) + "%");
 
         tv_date.setText(w.getDeadlineDate());
         tv_time.setText(w.getDeadlineTime());

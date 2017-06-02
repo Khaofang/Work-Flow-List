@@ -26,6 +26,10 @@ public class Process {
         finish = true;
     }
 
+    public void notFinish() {
+        finish = false;
+    }
+
     public String toString() {
         return detail;
     }
