@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.chayanin.workflowlist.EditWork.EditWorkActivity;
 import com.example.chayanin.workflowlist.Model.Process;
 import com.example.chayanin.workflowlist.Model.Work;
 import com.example.chayanin.workflowlist.R;
@@ -28,8 +29,7 @@ public class ViewWorkActivity extends AppCompatActivity implements ViewWorkView 
         setContentView(R.layout.activity_view_work);
         int i = getIntent().getIntExtra("index", 0);
 
-        if (presenter == null)
-            presenter = new ViewWorkPresenter(this, i);
+        presenter = new ViewWorkPresenter(this, i);
 
         lv_processList = (ListView) findViewById(R.id.lv_viewWork_processList);
         tv_date = (TextView) findViewById(R.id.tv_viewWork_date);
@@ -41,6 +41,15 @@ public class ViewWorkActivity extends AppCompatActivity implements ViewWorkView 
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                setUpAllComponents();
+            }
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         Intent intent = new Intent();
         setResult(RESULT_OK, intent);
@@ -49,6 +58,9 @@ public class ViewWorkActivity extends AppCompatActivity implements ViewWorkView 
 
     @Override
     public void goToEditWorkActivity(View view) {
+        Intent intent = new Intent(ViewWorkActivity.this, EditWorkActivity.class);
+        intent.putExtra("index", presenter.getIndex());
+        startActivityForResult(intent, 1);
     }
 
     @Override

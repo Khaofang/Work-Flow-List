@@ -10,11 +10,6 @@ public class Work {
     private String deadlineTime;
     private String topic;
 
-    public Work(String topic) {
-        processes = new ArrayList<Process>();
-        this.topic = topic;
-    }
-
     public Work(String topic, List<Process> processes, String date, String time) {
         this.processes = processes;
         this.topic = topic;
@@ -36,6 +31,22 @@ public class Work {
 
     public String getTopic() {
         return topic;
+    }
+
+    public void setDeadlineDate(String deadlineDate) {
+        this.deadlineDate = deadlineDate;
+    }
+
+    public void setDeadlineTime(String deadlineTime){
+        this.deadlineTime = deadlineTime;
+    }
+
+    public void setProcesses(List<Process> processes) {
+        this.processes = processes;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public void addNewProcess(Process p) {

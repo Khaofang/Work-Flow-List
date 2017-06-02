@@ -18,11 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".AddWork.AddWorkActivity"
+        <activity android:name=".AddWork.AddWorkActivity"
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity android:name=".ViewWork.ViewWorkActivity" />
-        <activity android:name=".EditWork.EditWorkActivity"></activity>
+        <activity android:name=".EditWork.EditWorkActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
     </application>
 
 </manifest>

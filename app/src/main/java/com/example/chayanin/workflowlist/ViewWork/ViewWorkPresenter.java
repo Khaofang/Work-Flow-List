@@ -16,6 +16,10 @@ public class ViewWorkPresenter {
         this.index = index;
     }
 
+    public int getIndex() {
+        return index;
+    }
+
     public Work getWork() {
         return work;
     }

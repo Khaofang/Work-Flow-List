@@ -18,6 +18,10 @@ public class Process {
         return detail;
     }
 
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
     public void finish() {
         finish = true;
     }
