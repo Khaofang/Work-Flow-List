@@ -1,4 +1,4 @@
-package com.example.chayanin.workflowlist;
+package com.example.chayanin.workflowlist.Model;
 
 import java.util.ArrayList;
 import java.util.List;

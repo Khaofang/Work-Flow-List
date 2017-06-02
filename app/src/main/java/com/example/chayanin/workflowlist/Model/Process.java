@@ -1,4 +1,4 @@
-package com.example.chayanin.workflowlist;
+package com.example.chayanin.workflowlist.Model;
 
 public class Process {
 

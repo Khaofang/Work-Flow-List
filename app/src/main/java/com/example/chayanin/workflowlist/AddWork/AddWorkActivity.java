@@ -1,4 +1,4 @@
-package com.example.chayanin.workflowlist;
+package com.example.chayanin.workflowlist.AddWork;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,10 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import com.example.chayanin.workflowlist.Model.Process;
+import com.example.chayanin.workflowlist.R;
+import com.example.chayanin.workflowlist.Model.Work;
 
 public class AddWorkActivity extends AppCompatActivity implements AddWorkView {
 
@@ -40,6 +39,7 @@ public class AddWorkActivity extends AppCompatActivity implements AddWorkView {
         finish();
     }
 
+    @Override
     public void addNewProcess(View view) {
         EditText et_process = (EditText) findViewById(R.id.et_addWork_process);
         String process = et_process.getText().toString();
@@ -51,6 +51,7 @@ public class AddWorkActivity extends AppCompatActivity implements AddWorkView {
         }
     }
 
+    @Override
     public void complete(View view) {
         successAdd = true;
         EditText et_topic = (EditText) findViewById(R.id.et_addWork_topic);
@@ -83,6 +84,7 @@ public class AddWorkActivity extends AppCompatActivity implements AddWorkView {
         }
     }
 
+    @Override
     public void goToMainActivity(View view) {
         if (successAdd)
             onBackPressed();
@@ -92,6 +94,7 @@ public class AddWorkActivity extends AppCompatActivity implements AddWorkView {
         }
     }
 
+    @Override
     public void setUpListView() {
         ArrayAdapter<Process> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, presenter.getProcesses());
         lv_processList.setAdapter(adapter);

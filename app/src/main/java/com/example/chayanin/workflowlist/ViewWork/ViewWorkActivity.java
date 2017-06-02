@@ -1,13 +1,16 @@
-package com.example.chayanin.workflowlist;
+package com.example.chayanin.workflowlist.ViewWork;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.example.chayanin.workflowlist.Model.Process;
+import com.example.chayanin.workflowlist.Model.Work;
+import com.example.chayanin.workflowlist.R;
 
 public class ViewWorkActivity extends AppCompatActivity implements ViewWorkView {
 
@@ -34,10 +37,35 @@ public class ViewWorkActivity extends AppCompatActivity implements ViewWorkView 
         tv_time = (TextView) findViewById(R.id.tv_viewWork_time);
         tv_topic = (TextView) findViewById(R.id.tv_viewWork_topic);
 
-        setUpAllComponents(presenter.getWork());
+        setUpAllComponents();
     }
 
-    public void setUpAllComponents(Work w) {
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    @Override
+    public void goToEditWorkActivity(View view) {
+    }
+
+    @Override
+    public void goToMainActivity(View view) {
+        onBackPressed();
+    }
+
+    @Override
+    public void removeThisWork(View view) {
+        presenter.removeThisWork();
+        goToMainActivity(view);
+    }
+
+    @Override
+    public void setUpAllComponents() {
+        Work w = presenter.getWork();
+
         tv_topic.setText(w.toString());
 
         if (w.getNumProcessesContained() == 0)
@@ -50,11 +78,6 @@ public class ViewWorkActivity extends AppCompatActivity implements ViewWorkView 
 
         ArrayAdapter<Process> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, w.getProcesses());
         lv_processList.setAdapter(adapter);
-
-
-        // TODO:
-
     }
-
 
 }

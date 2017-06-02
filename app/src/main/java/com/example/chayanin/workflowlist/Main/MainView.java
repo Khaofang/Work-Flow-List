@@ -1,13 +1,10 @@
-package com.example.chayanin.workflowlist;
+package com.example.chayanin.workflowlist.Main;
 
 import android.view.View;
-
-/**
- * Created by Chayanin on 2017-05-30.
- */
 
 public interface MainView {
 
     void goToAddWorkActivity(View view);
+    void setUpListView();
 
 }

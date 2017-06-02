@@ -1,8 +1,6 @@
-package com.example.chayanin.workflowlist;
+package com.example.chayanin.workflowlist.Main;
 
-/**
- * Created by Chayanin on 2017-05-30.
- */
+import com.example.chayanin.workflowlist.Model.WorkRepository;
 
 public class MainPresenter {
 

@@ -1,4 +1,8 @@
-package com.example.chayanin.workflowlist;
+package com.example.chayanin.workflowlist.AddWork;
+
+import com.example.chayanin.workflowlist.Model.Process;
+import com.example.chayanin.workflowlist.Model.Work;
+import com.example.chayanin.workflowlist.Model.WorkRepository;
 
 import java.util.ArrayList;
 import java.util.List;
