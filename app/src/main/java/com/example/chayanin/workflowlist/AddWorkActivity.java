@@ -19,7 +19,6 @@ public class AddWorkActivity extends AppCompatActivity implements AddWorkView {
 
     private ListView lv_processList;
 
-    private List<Process> processes;
     private boolean successAdd;
 
     @Override
@@ -28,7 +27,6 @@ public class AddWorkActivity extends AppCompatActivity implements AddWorkView {
         setContentView(R.layout.activity_add_work);
 
         lv_processList = (ListView) findViewById(R.id.lv_addWork_processList);
-        processes = new ArrayList<Process>();
         successAdd = false;
 
         if (presenter == null)
@@ -47,8 +45,9 @@ public class AddWorkActivity extends AppCompatActivity implements AddWorkView {
         String process = et_process.getText().toString();
         Process p = new Process(process);
         if (process.length() > 0) {
-            processes.add(p);
+            presenter.addNewProcess(p);
             setUpListView();
+            et_process.setText("");
         }
     }
 
@@ -69,33 +68,32 @@ public class AddWorkActivity extends AppCompatActivity implements AddWorkView {
             int hrs = Integer.parseInt(et_hour.getText().toString());
             int min = Integer.parseInt(et_minute.getText().toString());
 
-            Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.YEAR, year);
-            cal.set(Calendar.MONTH, month);
-            cal.set(Calendar.DATE, date);
-            cal.set(Calendar.HOUR, hrs);
-            cal.set(Calendar.MINUTE, min);
-            Date d = new Date(year, month, date, hrs, min);
+            if (presenter.isCorrectDate(year, month, date, hrs, min) && topic.length() > 0) {
+                String deadlineDate = String.format("%02d/%02d/%04d", date, month, year);
+                String deadlineTime = String.format("%02d:%02d", hrs, min);
+                Work w = new Work(topic, presenter.getProcesses(), deadlineDate, deadlineTime);
+                presenter.addNewWork(w);
+            } else {
+                successAdd = false;
+            }
 
-            Work w = new Work(topic, processes, d);
-            presenter.addNewWork(w);
+            goToMainActivity(view);
         } catch(Exception e) {
             successAdd = false;
         }
-
-        goToMainActivity(view);
     }
 
     public void goToMainActivity(View view) {
         if (successAdd)
             onBackPressed();
         else {
+            System.out.println("Not complete or wrong filling in");
             // TODO: alert that wrong filling in
         }
     }
 
     public void setUpListView() {
-        ArrayAdapter<Process> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, processes);
+        ArrayAdapter<Process> adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, presenter.getProcesses());
         lv_processList.setAdapter(adapter);
     }
 }

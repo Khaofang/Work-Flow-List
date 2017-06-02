@@ -10,8 +10,17 @@ public class ViewWorkPresenter {
 
     private Work work;
 
-    public ViewWorkPresenter(int index) {
+    public ViewWorkPresenter(ViewWorkView view, int index) {
+        this.view = view;
         work = WorkRepository.getInstance().getWorks().get(index);
+
+        // TODO: implements information from work to show on components
     }
-    
+
+    public Work getWork() {
+        return work;
+    }
+
+    // ACT: Calculate to progress bar
+
 }

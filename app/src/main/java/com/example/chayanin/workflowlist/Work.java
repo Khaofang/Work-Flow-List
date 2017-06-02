@@ -1,13 +1,15 @@
 package com.example.chayanin.workflowlist;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class Work {
 
     private List<Process> processes;
-    private Date deadline;
+    private String deadlineDate;
+    private String deadlineTime;
     private String topic;
 
     public Work(String topic) {
@@ -15,10 +17,19 @@ public class Work {
         this.topic = topic;
     }
 
-    public Work(String topic, List<Process> processes, Date deadline) {
+    public Work(String topic, List<Process> processes, String date, String time) {
         this.processes = processes;
         this.topic = topic;
-        this.deadline = deadline;
+        deadlineDate = date;
+        deadlineTime = time;
+    }
+
+    public String getDeadlineDate() {
+        return deadlineDate;
+    }
+
+    public String getDeadlineTime() {
+        return deadlineTime;
     }
 
     public List<Process> getProcesses() {
@@ -33,14 +44,17 @@ public class Work {
         processes.add(p);
     }
 
-    public int getPercentageComplete() {
-        int all = processes.size();
-        int countComplete = 0;
-        for (int i = 0; i < all; i++) {
-            if (processes.get(i).isFinish())
-                countComplete++;
+    public int getNumProcessesContained() {
+        return processes.size();
+    }
+
+    public int getNumProcessesFinished() {
+        int count = 0;
+        for (Process p : processes) {
+            if (p.isFinish())
+                count++;
         }
-        return countComplete * 100 / all;
+        return count;
     }
 
     public String toString() {
