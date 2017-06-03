@@ -1,10 +1,11 @@
 package com.example.chayanin.workflowlist.AddWork;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -54,7 +55,6 @@ public class AddWorkActivity extends AppCompatActivity implements AddWorkView {
 
     @Override
     public void complete(View view) {
-        successAdd = true;
         EditText et_topic = (EditText) findViewById(R.id.et_addWork_topic);
         EditText et_day = (EditText) findViewById(R.id.et_addWork_day);
         EditText et_month = (EditText) findViewById(R.id.et_addWork_month);
@@ -75,24 +75,34 @@ public class AddWorkActivity extends AppCompatActivity implements AddWorkView {
                 String deadlineTime = String.format("%02d:%02d", hrs, min);
                 Work w = new Work(topic, presenter.getProcesses(), deadlineDate, deadlineTime);
                 presenter.addNewWork(w);
+                successAdd = true;
             } else {
                 successAdd = false;
             }
-
-            goToMainActivity(view);
         } catch(Exception e) {
             successAdd = false;
+        }
+
+        if (successAdd) {
+            goToMainActivity(view);
+        } else {
+            AlertDialog.Builder ab = new AlertDialog.Builder(this);
+            ab.setMessage("No topic or incorrect date/time.");
+
+            ab.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            });
+
+            AlertDialog alert = ab.create();
+            alert.show();
         }
     }
 
     @Override
     public void goToMainActivity(View view) {
-        if (successAdd)
-            onBackPressed();
-        else {
-            System.out.println("Not complete or wrong filling in");
-            // TODO: alert that wrong filling in
-        }
+        onBackPressed();
     }
 
     @Override

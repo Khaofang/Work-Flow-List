@@ -1,21 +1,19 @@
 package com.example.chayanin.workflowlist.EditWork;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.chayanin.workflowlist.EditProcess.EditProcessActivity;
 import com.example.chayanin.workflowlist.Model.Process;
 import com.example.chayanin.workflowlist.R;
-
-import java.io.Serializable;
-import java.util.List;
 
 public class EditWorkActivity extends AppCompatActivity implements EditWorkView {
 
@@ -84,7 +82,6 @@ public class EditWorkActivity extends AppCompatActivity implements EditWorkView 
     @Override
     public void goToEditProcessActivity(int index) {
         Intent intent = new Intent(EditWorkActivity.this, EditProcessActivity.class);
-        intent.putExtra("work_index", presenter.getIndex());
         intent.putExtra("process_index", index);
         startActivityForResult(intent, 1);
     }
@@ -96,6 +93,7 @@ public class EditWorkActivity extends AppCompatActivity implements EditWorkView 
 
     @Override
     public void modifyWork(View view) {
+        boolean correct = false;
         try {
             String topic = et_topic.getText().toString();
             int date = Integer.parseInt(et_day.getText().toString());
@@ -108,11 +106,26 @@ public class EditWorkActivity extends AppCompatActivity implements EditWorkView 
                 String deadlineDate = String.format("%02d/%02d/%04d", date, month, year);
                 String deadlineTime = String.format("%02d:%02d", hrs, min);
                 presenter.updateData(topic, deadlineDate, deadlineTime);
-            } else {
+                correct = true;
             }
-
-            goToViewWorkActivity(view);
         } catch(Exception e) {
+            correct = false;
+        }
+
+        if (correct) {
+            goToViewWorkActivity(view);
+        } else {
+            AlertDialog.Builder ab = new AlertDialog.Builder(this);
+            ab.setMessage("No topic or incorrect date/time.");
+
+            ab.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            });
+
+            AlertDialog alert = ab.create();
+            alert.show();
         }
     }
 

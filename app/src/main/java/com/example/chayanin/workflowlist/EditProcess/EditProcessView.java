@@ -1,8 +1,10 @@
 package com.example.chayanin.workflowlist.EditProcess;
 
-/**
- * Created by Chayanin on 2017-06-02.
- */
+import android.view.View;
 
 public interface EditProcessView {
+
+    void goToEditWorkProcess(View view);
+    void modifyThisProcess(View view);
+
 }

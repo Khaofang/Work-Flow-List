@@ -20,13 +20,11 @@ public class EditWorkPresenter {
         this.view = view;
         work = WorkRepository.getInstance().getWorks().get(index);
         this.index = index;
-        newProcesses = new ArrayList<Process>();
+        newProcesses = work.getProcesses();
         oldProcesses = new ArrayList<Process>();
-        List<Process> processes = work.getProcesses();
-        for (int i = 0; i < processes.size(); i++) {
-            Process p = processes.get(i);
+        for (int i = 0; i < newProcesses.size(); i++) {
+            Process p = newProcesses.get(i);
             Process pSaved = new Process(p.getDetail(), p.isFinish());
-            newProcesses.add(p);
             oldProcesses.add(pSaved);
         }
     }

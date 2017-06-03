@@ -36,7 +36,7 @@ public class Process {
     }
 
     public String toString() {
-        return detail;
+        return detail + (finish ? " (Done)" : " (Not Done)" );
     }
 
 }

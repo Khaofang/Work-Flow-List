@@ -27,7 +27,7 @@ public class EditProcessActivity extends AppCompatActivity implements EditProces
         presenter = new EditProcessPresenter(this, wi, pi);
 
         et_process = (EditText) findViewById(R.id.et_editProcess_process);
-        et_process.setText(presenter.getProcess().toString());
+        et_process.setText(presenter.getProcess().getDetail());
         sw_finish = (Switch) findViewById(R.id.sw_editProcess_finish);
         sw_finish.setChecked(presenter.getProcess().isFinish());
         sw_finish.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -53,10 +53,6 @@ public class EditProcessActivity extends AppCompatActivity implements EditProces
         String process = et_process.getText().toString();
         presenter.updateData(process);
         goToEditWorkProcess(view);
-    }
-
-    public void removeThisProcess(View view) {
-        presenter.removeThisProcess();
     }
 
 }
